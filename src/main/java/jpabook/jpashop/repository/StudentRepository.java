@@ -27,4 +27,9 @@ public class StudentRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+    public void deleteById(Long studentId) {
+        Student student = em.find(Student.class, studentId);
+        em.remove(student);
+    }
 }

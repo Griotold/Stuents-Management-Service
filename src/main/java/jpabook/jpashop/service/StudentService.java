@@ -38,5 +38,8 @@ public class StudentService {
         student.setUniversity(form.getUniversity());
         student.setMajor(form.getMajor());
     }
-
+    @Transactional
+    public void deleteStudent(Long studentId) {
+        studentRepository.deleteById(studentId);
+    }
 }
