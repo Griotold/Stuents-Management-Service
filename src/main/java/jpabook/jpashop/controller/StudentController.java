@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -41,4 +43,26 @@ public class StudentController {
         model.addAttribute("students", students);
         return "students/studentList";
     }
+
+    @GetMapping("/students/{studentId}/edit")
+    public String updateStudentForm(@PathVariable("studentId") Long studentId, Model model) {
+        Student student = studentService.findOne(studentId);
+
+        StudentUpdateForm form = new StudentUpdateForm();
+        form.setId(student.getId());
+        form.setName(student.getName());
+        form.setResidence(student.getResidence());
+        form.setUniversity(student.getUniversity());
+        form.setMajor(student.getMajor());
+
+        model.addAttribute("form", form);
+        return "students/updateStudentForm";
+    }
+
+    @PostMapping("/students/{studentId}/edit")
+    public String updateStudent(@PathVariable Long studentId, @ModelAttribute("form") StudentUpdateForm form) {
+        studentService.updateStudent(studentId, form);
+        return "redirect:/students";
+    }
+
 }

@@ -5,7 +5,7 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <a class="btn btn btn-info" href="/students/new">회원 가입</a>
+    <a class="btn btn btn-info" href="/students/new">학원생 등록</a>
     <div>
         <table class="table table-striped">
             <thead>
@@ -24,6 +24,12 @@
                 <td th:text="${student.residence}"></td>
                 <td th:text="${student.university}"></td>
                 <td th:text="${student.major}"></td>
+                <td>
+                    <a href="#" th:href="@{/students/{id}/edit (id=${student.id})}" class="btn btn-primary" role="button">수정</a>
+                </td>
+                <td>
+                    <a href="#" th:href="@{/students/{id}/delete (id=${student.id})}" class="btn btn-danger" role="button">삭제</a>
+                </td>
             </tr>
             </tbody>
         </table>
